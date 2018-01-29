@@ -61,11 +61,11 @@ module Negapoji
     end
 
     def word_voting(word_point_list)
-      words_scores = []
+      words_scores = {}
       word_point_list.each do |word_point|
-        words_scores.push(word_point[:word], word_point[:point].to_f)
+        words_scores[word_point[:word]] = word_point[:point].to_f
       end
-      @result = words_scores.compact
+      @result = words_scores
     end
 
   end
