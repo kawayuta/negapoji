@@ -18,6 +18,11 @@ module Negapoji
       @point = simple_voting(inui_okazaki(sentence_chomped))
     end
 
+    def word_pointing(sentence)
+      sentence_chomped = remove_kaigyo(sentence)
+      @point = word_voting(inui_okazaki(sentence_chomped))
+    end
+
     def inui_okazaki(sentence)
       word_point_list = []
       @mecab.parse(sentence) do |sentence_parsed|
@@ -54,5 +59,14 @@ module Negapoji
       end
       @result = the_day_point == 0 ? the_day_point : the_day_point / word_point_list.count.to_i
     end
+
+    def word_voting(word_point_list)
+      words_scores = []
+      word_point_list.each do |word_point|
+        words_scores.push(word_point[:word], word_point[:point].to_f)
+      end
+      @result = words_scores.chomp
+    end
+
   end
 end
