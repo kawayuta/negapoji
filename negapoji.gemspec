@@ -6,8 +6,8 @@ require 'negapoji/version'
 Gem::Specification.new do |spec|
   spec.name          = "negapoji"
   spec.version       = Negapoji::VERSION
-  spec.authors       = ["Kazuki Hattori"]
-  spec.email         = ["moroku0519@gmail.com"]
+  spec.authors       = ["Kazuki Hattori / Yuta Kawaguchi"]
+  spec.email         = ["moroku0519@gmail.com / memeshe.work@gmai.com"]
 
   spec.summary       = %q{Negapoji determine the sentence is either negative or positive}
   spec.description   = %q{}
