@@ -9,37 +9,37 @@ module Negapoji
 
     def initialize
       @mecab = Natto::MeCab.new
-      @pn_wago_verbs_and_adjectives = create_pn_wago_verbs_and_adjectives
-      @pn_wago_nouns = create_pn_wago_nouns
+      @jp = create_jp
+      @en = create_en
     end
 
-    def create_pn_wago_verbs_and_adjectives
+    def create_jp
       point = []
       word = []
-      File.open(DIC_PATH + '/../../dic/wago.121808.pn', 'r:utf-8') do |f|
+      File.open(DIC_PATH + '/../../dic/jp.txt', 'r:utf-8') do |f|
         while line = f.gets
-          content = line.split(',')
-          point.push(content[0])
-          word.push(content[2].chomp)
+          content = line.split(':')
+          point.push(content[3])
+          word.push(content[0].chomp)
         end
       end
       { word: word, point: point }
     end
 
-    def create_pn_wago_nouns
+    def create_en
       point = []
       word = []
-      File.open(DIC_PATH + '/../../dic/pn.csv.m3.120408.trim', 'r:utf-8') do |f|
+      File.open(DIC_PATH + '/../../dic/en.txt', 'r:utf-8') do |f|
         while line = f.gets
-          content = line.split(',')
-          word.push(content[0])
-          point.push(content[1])
+          content = line.split(':')
+          word.push(content[2])
+          point.push(content[0].chomp)
         end
       end
-      @pn_wago_nouns = { word: word, point: point }
+      { word: word, point: point }
     end
 
-    attr_reader :pn_wago_verbs_and_adjectives
-    attr_reader :pn_wago_nouns
+    attr_reader :jp
+    attr_reader :en
   end
 end

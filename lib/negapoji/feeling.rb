@@ -23,7 +23,9 @@ module Negapoji
       @mecab.parse(sentence) do |sentence_parsed|
         feature = sentence_parsed.feature.split(',')
         if @hinshi_collected.include?(feature[0])
-          pn = feature[0] == '名詞' ? @pn_wago_nouns : @pn_wago_verbs_and_adjectives
+          if feature[0] == '名詞' || feature[0] == '形容詞' || feature[0] == '副詞' || feature[0] == '動詞'
+            pn = @pn_wago_verbs_and_adjectives
+          end
           index = pn[:word].index(feature[6])
           unless index.nil?
             word_point_list.push(word: feature[6], point: pn[:point][index])
@@ -37,12 +39,12 @@ module Negapoji
 
     def set_pn_wago_verbs_and_adjectives
       dictionary = Negapoji::Dictionary.instance
-      dictionary.pn_wago_verbs_and_adjectives
+      dictionary.jp
     end
 
     def set_pn_wago_nouns
       dictionary = Negapoji::Dictionary.instance
-      dictionary.pn_wago_nouns
+      dictionary.en
     end
 
     def simple_voting(word_point_list)
