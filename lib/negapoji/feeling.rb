@@ -65,7 +65,7 @@ module Negapoji
       word_point_list.each do |word_point|
         words_scores.push(word_point[:word], word_point[:point].to_f)
       end
-      @result = words_scores.chomp
+      @result = words_scores.compact
     end
 
   end
